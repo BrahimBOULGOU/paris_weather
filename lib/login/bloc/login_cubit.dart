@@ -11,6 +11,7 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       final userModel =
           UserModel(username: 'brahmboulgou@gmail.com', name: 'Brahim');
+      Future.delayed(const Duration(seconds: 1));
       emit(state.copyWith(
           loginStatus: LoginStatus.success, userModel: userModel));
     } catch (e) {

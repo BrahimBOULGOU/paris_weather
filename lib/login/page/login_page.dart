@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../bloc/login_cubit.dart';
 import '../bloc/login_state.dart';
@@ -41,68 +43,90 @@ class _LoginPageState extends State<LoginPage> {
               ),
             );
           }
+          if (state.loginStatus == LoginStatus.success) {
+            context.goNamed('weatherList',
+                queryParameters: {'name': state.userModel?.name});
+          }
         }, builder: (context, state) {
+          if (state.loginStatus == LoginStatus.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
           return Scaffold(
-            bottomNavigationBar: LoginButton(
-              text: 'Se connecter',
-              onTap: () => context.read<LoginCubit>().login(
-                  username: usernameController.text,
-                  password: passwordController.text),
-              isEnabled: true,
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: LoginButton(
+                text: 'Se connecter',
+                onTap: () => context.read<LoginCubit>().login(
+                    username: usernameController.text,
+                    password: passwordController.text),
+                isEnabled: true,
+              ),
             ),
-            body: Column(
-              children: [
-                TextField(
-                  controller: usernameController,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500),
-                  decoration: const InputDecoration(
-                    label: Text(
-                      'Username',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+            body: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: usernameController,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                          decoration: const InputDecoration(
+                            label: Text(
+                              'Username',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        TextField(
+                          controller: passwordController,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                          decoration: const InputDecoration(
+                            label: Text(
+                              'Password',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
-                TextField(
-                  controller: passwordController,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500),
-                  decoration: const InputDecoration(
-                    label: Text(
-                      'Password',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                  ),
-                )
-              ],
+              ),
             ),
           );
         }),
