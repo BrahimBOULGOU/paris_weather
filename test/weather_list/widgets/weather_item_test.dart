@@ -21,7 +21,7 @@ void main() {
     final temperature = find.text(283.37.toCelsius());
     expect(temperature, findsOneWidget);
 
-    final date = find.text(1712005200.toDateTime().toDateString());
+    final date = find.text(1712005200.toDateTime().toTimeString());
     expect(date, findsOneWidget);
   });
 }

@@ -7,10 +7,10 @@ part of 'weather.dart';
 // **************************************************************************
 
 Weather _$WeatherFromJson(Map<String, dynamic> json) => Weather(
-      id: json['id'] as int?,
-      main: json['main'] as String?,
-      description: json['description'] as String?,
-      icon: json['icon'] as String?,
+      id: json['id'] as int,
+      main: json['main'] as String,
+      description: json['description'] as String,
+      icon: json['icon'] as String,
     );
 
 Map<String, dynamic> _$WeatherToJson(Weather instance) => <String, dynamic>{

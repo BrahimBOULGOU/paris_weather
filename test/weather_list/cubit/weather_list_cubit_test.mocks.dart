@@ -7,9 +7,9 @@ import 'dart:async' as _i5;
 
 import 'package:flutter_bloc/flutter_bloc.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:paris_weather/core/network/apis_helper.dart' as _i4;
+import 'package:paris_weather/core/network/apis_helper.dart' as _i3;
 import 'package:paris_weather/weather_list/bloc/weather_list_cubit.dart' as _i6;
-import 'package:paris_weather/weather_list/bloc/weather_list_state.dart' as _i3;
+import 'package:paris_weather/weather_list/bloc/weather_list_state.dart' as _i4;
 import 'package:paris_weather/weather_list/models/weather_response.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -36,9 +36,19 @@ class _FakeWeatherResponse_0 extends _i1.SmartFake
         );
 }
 
-class _FakeWeatherListState_1 extends _i1.SmartFake
-    implements _i3.WeatherListState {
-  _FakeWeatherListState_1(
+class _FakeApisHelper_1 extends _i1.SmartFake implements _i3.ApisHelper {
+  _FakeApisHelper_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeWeatherListState_2 extends _i1.SmartFake
+    implements _i4.WeatherListState {
+  _FakeWeatherListState_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -50,7 +60,7 @@ class _FakeWeatherListState_1 extends _i1.SmartFake
 /// A class which mocks [ApisHelper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApisHelper extends _i1.Mock implements _i4.ApisHelper {
+class MockApisHelper extends _i1.Mock implements _i3.ApisHelper {
   MockApisHelper() {
     _i1.throwOnMissingStub(this);
   }
@@ -87,24 +97,37 @@ class MockApisHelper extends _i1.Mock implements _i4.ApisHelper {
 /// See the documentation for Mockito's code generation for more information.
 class MockWeatherListCubit extends _i1.Mock implements _i6.WeatherListCubit {
   @override
-  _i3.WeatherListState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _FakeWeatherListState_1(
+  _i3.ApisHelper get apisHelper => (super.noSuchMethod(
+        Invocation.getter(#apisHelper),
+        returnValue: _FakeApisHelper_1(
           this,
-          Invocation.getter(#state),
+          Invocation.getter(#apisHelper),
         ),
-        returnValueForMissingStub: _FakeWeatherListState_1(
+        returnValueForMissingStub: _FakeApisHelper_1(
           this,
-          Invocation.getter(#state),
+          Invocation.getter(#apisHelper),
         ),
-      ) as _i3.WeatherListState);
+      ) as _i3.ApisHelper);
 
   @override
-  _i5.Stream<_i3.WeatherListState> get stream => (super.noSuchMethod(
+  _i4.WeatherListState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _FakeWeatherListState_2(
+          this,
+          Invocation.getter(#state),
+        ),
+        returnValueForMissingStub: _FakeWeatherListState_2(
+          this,
+          Invocation.getter(#state),
+        ),
+      ) as _i4.WeatherListState);
+
+  @override
+  _i5.Stream<_i4.WeatherListState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i5.Stream<_i3.WeatherListState>.empty(),
-        returnValueForMissingStub: _i5.Stream<_i3.WeatherListState>.empty(),
-      ) as _i5.Stream<_i3.WeatherListState>);
+        returnValue: _i5.Stream<_i4.WeatherListState>.empty(),
+        returnValueForMissingStub: _i5.Stream<_i4.WeatherListState>.empty(),
+      ) as _i5.Stream<_i4.WeatherListState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -117,7 +140,6 @@ class MockWeatherListCubit extends _i1.Mock implements _i6.WeatherListCubit {
   void getWeatherData({
     required String? city,
     required String? appId,
-    required _i4.ApisHelper? apisHelper,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -126,14 +148,13 @@ class MockWeatherListCubit extends _i1.Mock implements _i6.WeatherListCubit {
           {
             #city: city,
             #appId: appId,
-            #apisHelper: apisHelper,
           },
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void emit(_i3.WeatherListState? state) => super.noSuchMethod(
+  void emit(_i4.WeatherListState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -142,7 +163,7 @@ class MockWeatherListCubit extends _i1.Mock implements _i6.WeatherListCubit {
       );
 
   @override
-  void onChange(_i7.Change<_i3.WeatherListState>? change) => super.noSuchMethod(
+  void onChange(_i7.Change<_i4.WeatherListState>? change) => super.noSuchMethod(
         Invocation.method(
           #onChange,
           [change],

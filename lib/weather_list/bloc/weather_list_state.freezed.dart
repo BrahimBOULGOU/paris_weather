@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$WeatherListState {
-  WeatherResponse? get weatherResponse => throw _privateConstructorUsedError;
+  Map<String, List<WeatherData>>? get weatherResponseByDate =>
+      throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   WeatherListStatus? get weatherListStatus =>
       throw _privateConstructorUsedError;
@@ -33,7 +34,7 @@ abstract class $WeatherListStateCopyWith<$Res> {
       _$WeatherListStateCopyWithImpl<$Res, WeatherListState>;
   @useResult
   $Res call(
-      {WeatherResponse? weatherResponse,
+      {Map<String, List<WeatherData>>? weatherResponseByDate,
       String? errorMessage,
       WeatherListStatus? weatherListStatus});
 }
@@ -51,15 +52,15 @@ class _$WeatherListStateCopyWithImpl<$Res, $Val extends WeatherListState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? weatherResponse = freezed,
+    Object? weatherResponseByDate = freezed,
     Object? errorMessage = freezed,
     Object? weatherListStatus = freezed,
   }) {
     return _then(_value.copyWith(
-      weatherResponse: freezed == weatherResponse
-          ? _value.weatherResponse
-          : weatherResponse // ignore: cast_nullable_to_non_nullable
-              as WeatherResponse?,
+      weatherResponseByDate: freezed == weatherResponseByDate
+          ? _value.weatherResponseByDate
+          : weatherResponseByDate // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<WeatherData>>?,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -81,7 +82,7 @@ abstract class _$$WeatherListStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {WeatherResponse? weatherResponse,
+      {Map<String, List<WeatherData>>? weatherResponseByDate,
       String? errorMessage,
       WeatherListStatus? weatherListStatus});
 }
@@ -97,15 +98,15 @@ class __$$WeatherListStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? weatherResponse = freezed,
+    Object? weatherResponseByDate = freezed,
     Object? errorMessage = freezed,
     Object? weatherListStatus = freezed,
   }) {
     return _then(_$WeatherListStateImpl(
-      weatherResponse: freezed == weatherResponse
-          ? _value.weatherResponse
-          : weatherResponse // ignore: cast_nullable_to_non_nullable
-              as WeatherResponse?,
+      weatherResponseByDate: freezed == weatherResponseByDate
+          ? _value._weatherResponseByDate
+          : weatherResponseByDate // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<WeatherData>>?,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -122,10 +123,22 @@ class __$$WeatherListStateImplCopyWithImpl<$Res>
 
 class _$WeatherListStateImpl implements _WeatherListState {
   const _$WeatherListStateImpl(
-      {this.weatherResponse, this.errorMessage, this.weatherListStatus});
+      {final Map<String, List<WeatherData>>? weatherResponseByDate,
+      this.errorMessage,
+      this.weatherListStatus})
+      : _weatherResponseByDate = weatherResponseByDate;
 
+  final Map<String, List<WeatherData>>? _weatherResponseByDate;
   @override
-  final WeatherResponse? weatherResponse;
+  Map<String, List<WeatherData>>? get weatherResponseByDate {
+    final value = _weatherResponseByDate;
+    if (value == null) return null;
+    if (_weatherResponseByDate is EqualUnmodifiableMapView)
+      return _weatherResponseByDate;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final String? errorMessage;
   @override
@@ -133,7 +146,7 @@ class _$WeatherListStateImpl implements _WeatherListState {
 
   @override
   String toString() {
-    return 'WeatherListState(weatherResponse: $weatherResponse, errorMessage: $errorMessage, weatherListStatus: $weatherListStatus)';
+    return 'WeatherListState(weatherResponseByDate: $weatherResponseByDate, errorMessage: $errorMessage, weatherListStatus: $weatherListStatus)';
   }
 
   @override
@@ -141,8 +154,8 @@ class _$WeatherListStateImpl implements _WeatherListState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WeatherListStateImpl &&
-            (identical(other.weatherResponse, weatherResponse) ||
-                other.weatherResponse == weatherResponse) &&
+            const DeepCollectionEquality()
+                .equals(other._weatherResponseByDate, _weatherResponseByDate) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.weatherListStatus, weatherListStatus) ||
@@ -151,7 +164,10 @@ class _$WeatherListStateImpl implements _WeatherListState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, weatherResponse, errorMessage, weatherListStatus);
+      runtimeType,
+      const DeepCollectionEquality().hash(_weatherResponseByDate),
+      errorMessage,
+      weatherListStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -163,12 +179,12 @@ class _$WeatherListStateImpl implements _WeatherListState {
 
 abstract class _WeatherListState implements WeatherListState {
   const factory _WeatherListState(
-      {final WeatherResponse? weatherResponse,
+      {final Map<String, List<WeatherData>>? weatherResponseByDate,
       final String? errorMessage,
       final WeatherListStatus? weatherListStatus}) = _$WeatherListStateImpl;
 
   @override
-  WeatherResponse? get weatherResponse;
+  Map<String, List<WeatherData>>? get weatherResponseByDate;
   @override
   String? get errorMessage;
   @override

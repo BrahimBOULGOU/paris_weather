@@ -7,13 +7,11 @@ part of 'weather_details.dart';
 // **************************************************************************
 
 WeatherData _$WeatherDataFromJson(Map<String, dynamic> json) => WeatherData(
-      main: json['main'] == null
-          ? null
-          : Main.fromJson(json['main'] as Map<String, dynamic>),
-      weather: (json['weather'] as List<dynamic>?)
-          ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
+      dt: json['dt'] as int,
+      main: Main.fromJson(json['main'] as Map<String, dynamic>),
+      weather: (json['weather'] as List<dynamic>)
+          .map((e) => Weather.fromJson(e as Map<String, dynamic>))
           .toList(),
-      dt: json['dt'] as int?,
     );
 
 Map<String, dynamic> _$WeatherDataToJson(WeatherData instance) =>

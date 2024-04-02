@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:paris_weather/core/extensions/date_extension.dart';
 import 'package:paris_weather/core/extensions/int_extension.dart';
 import 'package:paris_weather/core/extensions/temp_extension.dart';
-import 'package:paris_weather/core/extensions/date_extension.dart';
 import 'package:paris_weather/weather_list/widgets/weather_icon.dart';
 
 class WeatherItem extends StatelessWidget {
@@ -14,17 +14,30 @@ class WeatherItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (icon != null) ...[WeatherIcon(icon: icon!)],
-        Column(
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
           children: [
-            Text(date?.toDateTime().toDateString() ?? ''),
-            Text(temperature?.toCelsius() ?? ''),
-            Text(description ?? ''),
+            if (icon != null) ...[WeatherIcon(icon: icon!)],
+            Text(date?.toDateTime().toTimeString() ?? '',
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16)),
+            Text(temperature?.toCelsius() ?? '',
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16)),
+            Text(description ?? '',
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16))
           ],
-        )
-      ],
+        ),
+      ),
     );
   }
 }

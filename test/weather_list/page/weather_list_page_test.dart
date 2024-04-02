@@ -14,10 +14,12 @@ class FakeApisHelper implements ApisHelper {
   Future<WeatherResponse> getWeatherData(String city, String appId) async {
     return WeatherResponse(
       list: [
-        WeatherData(
+        const WeatherData(
           dt: 1633024800,
           main: Main(temp: 283.37),
-          weather: [Weather(description: 'clear sky', icon: '01d')],
+          weather: [
+            Weather(description: 'clear sky', icon: '01d', id: 1, main: '')
+          ],
         ),
       ],
     );
@@ -37,5 +39,6 @@ void main() {
     );
 
     await tester.pumpAndSettle();
+    //todo: check if weather items are displayed
   });
 }

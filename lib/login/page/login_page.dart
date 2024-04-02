@@ -76,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 16),
                     child: Form(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: _formKey,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -112,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                               }),
                           TextFormField(
                             controller: passwordController,
+                            obscureText: true,
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
