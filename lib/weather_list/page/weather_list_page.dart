@@ -13,8 +13,10 @@ class WeatherListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String appId =
-        'fd5695f360a8712d1538592c3333b9ac'; //todo: move to dart define (config files)
+    //todo: move to dart define (config files)
+    //doc: https://dartcode.org/docs/using-dart-define-in-flutter/
+
+    String appId = 'fd5695f360a8712d1538592c3333b9ac'; // this is a fake appId
 
     return BlocProvider(
       create: (context) => WeatherListCubit(ApisHelper(Dio()))
@@ -33,39 +35,47 @@ class WeatherListPage extends StatelessWidget {
           if (state.weatherListStatus == WeatherListStatus.loading) {
             return const Center(child: CircularProgressIndicator());
           }
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ListView.separated(
-              itemCount: state.weatherResponseByDate?.keys.length ?? 0,
-              itemBuilder: (context, index) {
-                final date = state.weatherResponseByDate?.keys.elementAt(index);
-                final weatherData = state.weatherResponseByDate?[date]!;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      date ?? '',
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    _buildWeatherListDetails(weatherData),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                  ],
-                );
-              },
-              separatorBuilder: (context, index) => const Divider(
-                color: Colors.grey,
-                thickness: 1,
+          return RefreshIndicator(
+            onRefresh: () async {
+              context
+                  .read<WeatherListCubit>()
+                  .getWeatherData(city: 'Paris,fr', appId: appId);
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ListView.separated(
+                itemCount: state.weatherResponseByDate?.keys.length ?? 0,
+                itemBuilder: (context, index) {
+                  final date =
+                      state.weatherResponseByDate?.keys.elementAt(index);
+                  final weatherData = state.weatherResponseByDate?[date]!;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        date ?? '',
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _buildWeatherListDetails(weatherData),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(
+                  color: Colors.grey,
+                  thickness: 1,
+                ),
               ),
             ),
           );

@@ -5,6 +5,7 @@ import 'package:paris_weather/core/extensions/int_extension.dart';
 
 import '../../core/network/apis_helper.dart';
 import '../../core/utils/status_code.dart';
+import '../models/weather_details.dart';
 import 'weather_list_state.dart';
 
 class WeatherListCubit extends Cubit<WeatherListState> {
@@ -12,11 +13,14 @@ class WeatherListCubit extends Cubit<WeatherListState> {
   WeatherListCubit(this.apisHelper) : super(const WeatherListState());
 
   void getWeatherData({required String city, required String appId}) async {
+    Map<String, List<WeatherData>> weatherResponseByDate = {};
     emit(state.copyWith(weatherListStatus: WeatherListStatus.loading));
     try {
       final response = await apisHelper.getWeatherData(city, appId);
-      final weatherResponseByDate = response.list!
-          .groupListsBy((item) => item.dt.toDateTime().toDateString());
+      if (response.list != null) {
+        weatherResponseByDate = response.list!
+            .groupListsBy((item) => item.dt.toDateTime().toDateString());
+      }
 
       if (response.cod == StatusCode.success.value) {
         emit(state.copyWith(
