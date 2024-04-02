@@ -13,7 +13,8 @@ WeatherData _$WeatherDataFromJson(Map<String, dynamic> json) => WeatherData(
       weather: (json['weather'] as List<dynamic>?)
           ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
           .toList(),
-    )..dt = json['dt'] as int?;
+      dt: json['dt'] as int?,
+    );
 
 Map<String, dynamic> _$WeatherDataToJson(WeatherData instance) =>
     <String, dynamic>{

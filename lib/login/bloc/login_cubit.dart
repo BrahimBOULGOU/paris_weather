@@ -8,14 +8,11 @@ class LoginCubit extends Cubit<LoginState> {
 
   void login({required String username, required String password}) async {
     emit(state.copyWith(loginStatus: LoginStatus.loading));
-    try {
-      final userModel =
-          UserModel(username: 'brahmboulgou@gmail.com', name: 'Brahim');
-      Future.delayed(const Duration(seconds: 1));
-      emit(state.copyWith(
-          loginStatus: LoginStatus.success, userModel: userModel));
-    } catch (e) {
-      emit(state.copyWith(loginStatus: LoginStatus.failed));
-    }
+
+    const userModel =
+        UserModel(username: 'brahmboulgou@gmail.com', name: 'Brahim');
+    await Future.delayed(const Duration(seconds: 1));
+    emit(
+        state.copyWith(loginStatus: LoginStatus.success, userModel: userModel));
   }
 }

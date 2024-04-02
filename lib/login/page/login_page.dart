@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -49,7 +48,8 @@ class _LoginPageState extends State<LoginPage> {
           }
         }, builder: (context, state) {
           if (state.loginStatus == LoginStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Material(
+                child: Center(child: CircularProgressIndicator()));
           }
           return Scaffold(
             bottomNavigationBar: Padding(

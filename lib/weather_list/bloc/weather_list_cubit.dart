@@ -22,7 +22,9 @@ class WeatherListCubit extends Cubit<WeatherListState> {
         emit(state.copyWith(weatherListStatus: WeatherListStatus.failed));
       }
     } catch (e) {
-      emit(state.copyWith(weatherListStatus: WeatherListStatus.failed));
+      emit(state.copyWith(
+          weatherListStatus: WeatherListStatus.failed,
+          errorMessage: e.toString()));
     }
   }
 }

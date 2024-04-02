@@ -11,7 +11,7 @@ class WeatherData {
   Main? main;
   List<Weather>? weather;
 
-  WeatherData({this.main, this.weather});
+  WeatherData({this.main, this.weather, this.dt});
 
   factory WeatherData.fromJson(Map<String, dynamic> json) =>
       _$WeatherDataFromJson(json);

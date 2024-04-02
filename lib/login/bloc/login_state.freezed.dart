@@ -33,6 +33,8 @@ abstract class $LoginStateCopyWith<$Res> {
   @useResult
   $Res call(
       {UserModel? userModel, String? errorMessage, LoginStatus? loginStatus});
+
+  $UserModelCopyWith<$Res>? get userModel;
 }
 
 /// @nodoc
@@ -67,6 +69,18 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
               as LoginStatus?,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res>? get userModel {
+    if (_value.userModel == null) {
+      return null;
+    }
+
+    return $UserModelCopyWith<$Res>(_value.userModel!, (value) {
+      return _then(_value.copyWith(userModel: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -79,6 +93,9 @@ abstract class _$$LoginStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {UserModel? userModel, String? errorMessage, LoginStatus? loginStatus});
+
+  @override
+  $UserModelCopyWith<$Res>? get userModel;
 }
 
 /// @nodoc

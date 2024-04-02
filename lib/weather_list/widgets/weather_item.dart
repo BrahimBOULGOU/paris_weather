@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paris_weather/core/extensions/int_extension.dart';
 import 'package:paris_weather/core/extensions/temp_extension.dart';
 import 'package:paris_weather/core/extensions/date_extension.dart';
+import 'package:paris_weather/weather_list/widgets/weather_icon.dart';
 
 class WeatherItem extends StatelessWidget {
   final int? date;
@@ -15,9 +16,7 @@ class WeatherItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (icon != null) ...[
-          Image.network('https://openweathermap.org/img/wn/$icon@2x.png'),
-        ],
+        if (icon != null) ...[WeatherIcon(icon: icon!)],
         Column(
           children: [
             Text(date?.toDateTime().toDateString() ?? ''),
