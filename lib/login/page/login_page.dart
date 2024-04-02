@@ -16,6 +16,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late TextEditingController usernameController;
   late TextEditingController passwordController;
+  final _formKey = GlobalKey<FormState>();
+
+  RegExp get _emailRegex => RegExp(r'^\S+@\S+$');
 
   @override
   void initState() {
@@ -55,11 +58,14 @@ class _LoginPageState extends State<LoginPage> {
             bottomNavigationBar: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: LoginButton(
-                text: 'Se connecter',
-                onTap: () => context.read<LoginCubit>().login(
-                    username: usernameController.text,
-                    password: passwordController.text),
-                isEnabled: true,
+                text: 'Login',
+                onTap: () {
+                  if (_formKey.currentState!.validate()) {
+                    context.read<LoginCubit>().login(
+                        username: usernameController.text,
+                        password: passwordController.text);
+                  }
+                },
               ),
             ),
             body: Center(
@@ -69,60 +75,74 @@ class _LoginPageState extends State<LoginPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 16),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextField(
-                          controller: usernameController,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                          decoration: const InputDecoration(
-                            label: Text(
-                              'Username',
-                              style: TextStyle(
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextFormField(
+                              controller: usernameController,
+                              style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w500),
+                              decoration: const InputDecoration(
+                                label: Text(
+                                  'Username',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
+                                border: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (!_emailRegex.hasMatch(value ?? '')) {
+                                  return 'Please enter a valid Email address';
+                                }
+                                return null;
+                              }),
+                          TextFormField(
+                            controller: passwordController,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                            decoration: const InputDecoration(
+                              label: Text(
+                                'Password',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
                             ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                            border: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        TextField(
-                          controller: passwordController,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                          decoration: const InputDecoration(
-                            label: Text(
-                              'Password',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                            border: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                          ),
-                        )
-                      ],
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              }
+                              return null;
+                            },
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -3,16 +3,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:paris_weather/login/widgets/login_button.dart';
 
 void main() {
-  testWidgets('Should render Se connecter button', (WidgetTester tester) async {
+  testWidgets('Should render Login button', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
         home: Scaffold(
             body: LoginButton(
-      text: 'Se connecter',
+      text: 'Login',
       onTap: () {},
-      isEnabled: true,
     ))));
 
-    expect(find.text('Se connecter'), findsOneWidget);
+    expect(find.text('Login'), findsOneWidget);
     expect(find.byType(InkWell), findsOneWidget);
   });
 
@@ -22,11 +21,10 @@ void main() {
     await tester.pumpWidget(MaterialApp(
         home: Scaffold(
             body: LoginButton(
-      text: 'Se connecter',
+      text: 'Login',
       onTap: () {
         tapped = true;
       },
-      isEnabled: true,
     ))));
 
     await tester.tap(find.byType(InkWell));

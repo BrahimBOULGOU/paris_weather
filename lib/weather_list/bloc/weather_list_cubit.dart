@@ -4,12 +4,12 @@ import '../../core/network/apis_helper.dart';
 import 'weather_list_state.dart';
 
 class WeatherListCubit extends Cubit<WeatherListState> {
-  WeatherListCubit() : super(const WeatherListState());
+  final ApisHelper apisHelper;
+  WeatherListCubit(this.apisHelper) : super(const WeatherListState());
 
   void getWeatherData(
       {required String city,
-      required String appId,
-      required ApisHelper apisHelper}) async {
+      required String appId}) async {
     emit(state.copyWith(weatherListStatus: WeatherListStatus.loading));
     try {
       final response = await apisHelper.getWeatherData(city, appId);

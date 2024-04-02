@@ -18,13 +18,13 @@ void main() {
   group('WeatherListCubit tests', () {
     blocTest<WeatherListCubit, WeatherListState>(
       'emits [loading, success] when getWeatherData is called successfully',
-      build: () => WeatherListCubit(),
+      build: () => WeatherListCubit(client),
       act: (cubit) {
         when(client.getWeatherData('Paris,fr', 'appKey'))
             .thenAnswer((_) async => weatherResponse);
 
         cubit.getWeatherData(
-            city: 'Paris,fr', appId: 'appKey', apisHelper: client);
+            city: 'Paris,fr', appId: 'appKey');
       },
       expect: () => [
         const WeatherListState(weatherListStatus: WeatherListStatus.loading),
@@ -35,12 +35,12 @@ void main() {
     );
     blocTest<WeatherListCubit, WeatherListState>(
       'emits [loading, failed] when getWeatherData throws an error',
-      build: () => WeatherListCubit(),
+      build: () => WeatherListCubit(client),
       act: (cubit) {
         when(client.getWeatherData('Paris,fr', 'appKey'))
             .thenThrow(Exception());
         cubit.getWeatherData(
-            city: 'Paris,fr', appId: 'appKey', apisHelper: client);
+            city: 'Paris,fr', appId: 'appKey');
       },
       expect: () => [
         const WeatherListState(weatherListStatus: WeatherListStatus.loading),

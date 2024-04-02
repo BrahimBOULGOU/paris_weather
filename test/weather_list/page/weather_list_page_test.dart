@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paris_weather/core/network/apis_helper.dart';
@@ -17,7 +16,7 @@ class FakeApisHelper implements ApisHelper {
       list: [
         WeatherData(
           dt: 1633024800,
-          main: Main(temp: 20.0),
+          main: Main(temp: 283.37),
           weather: [Weather(description: 'clear sky', icon: '01d')],
         ),
       ],
@@ -30,8 +29,8 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: BlocProvider<WeatherListCubit>.value(
-          value: WeatherListCubit()..getWeatherData(city: 'Paris,fr', appId: 'fd5695f360a8712d1538592c3333b9ac',
-              apisHelper: FakeApisHelper()),
+          value: WeatherListCubit(FakeApisHelper())
+            ..getWeatherData(city: 'Paris,fr', appId: 'fd5695f'),
           child: const WeatherListPage(name: 'Test'),
         ),
       ),

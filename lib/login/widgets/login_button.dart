@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 class LoginButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
-  final bool? isEnabled;
-  const LoginButton(
-      {super.key, required this.onTap, required this.text, this.isEnabled});
+  const LoginButton({super.key, required this.onTap, required this.text});
 
   @override
   Widget build(BuildContext context) {
