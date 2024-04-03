@@ -17,12 +17,12 @@ class WeatherListCubit extends Cubit<WeatherListState> {
     emit(state.copyWith(weatherListStatus: WeatherListStatus.loading));
     try {
       final response = await apisHelper.getWeatherData(city, appId);
-      if (response.list != null) {
+  
+      if (response.cod == StatusCode.success.value) {
+         if (response.list != null) {
         weatherResponseByDate = response.list!
             .groupListsBy((item) => item.dt.toDateTime().toDateString());
       }
-
-      if (response.cod == StatusCode.success.value) {
         emit(state.copyWith(
             weatherListStatus: WeatherListStatus.success,
             weatherResponseByDate: weatherResponseByDate));
